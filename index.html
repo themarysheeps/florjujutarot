@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050912">
+<title>Flor Juju | Tarot & Tiragens</title>
+<style>
+:root{--bg:#050912;--panel:#081120;--blue:#17294a;--line:#7f91b7;--silver:#dce2ef;--muted:#a9b5ce;--white:#f3f4f8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Georgia,"Times New Roman",serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;z-index:-1;background:radial-gradient(circle at 12% 12%,#17284b 0,transparent 24%),radial-gradient(circle at 90% 70%,#0d1d38 0,transparent 28%),#050912}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+header{position:sticky;top:0;z-index:10;background:#050912ed;border-bottom:1px solid #8190ae66;backdrop-filter:blur(14px)}
+.nav{max-width:1500px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:15px 30px}
+.brand{display:flex;align-items:center;gap:13px;font-size:1.65rem;white-space:nowrap}
+.brand-icon{font-size:2.2rem;color:#b9c8e7}
+.brand small{display:block;font: .62rem Arial,sans-serif;letter-spacing:.26em;color:#a8b7d5;margin-top:2px}
+.links{display:flex;gap:clamp(14px,3vw,42px);align-items:center;font-size:.83rem;letter-spacing:.14em;text-transform:uppercase;color:#c4cce0}
+.links a{padding:8px 0;border-bottom:1px solid transparent}
+.links a:hover,.links a.active{border-color:#e2e8f7;color:white}
+.moons{letter-spacing:.28em;color:#c4d0e8;white-space:nowrap}
+.toggle{display:none;background:none;color:white;border:1px solid #7786a6;padding:7px 11px;border-radius:3px}
+.hero{min-height:330px;position:relative;display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:center;gap:20px;padding:28px max(4vw,24px);overflow:hidden;border-bottom:1px solid #8a9bbb77;background:linear-gradient(90deg,#050912e8,#081326dd,#050912e8)}
+.hero:before,.hero:after{position:absolute;color:#b8c8e8;opacity:.4;pointer-events:none}
+.hero:before{content:"✧  ☽  ⟡  ✦  ⟡  ☾  ✧";top:16px;left:4%;letter-spacing:1.2em}
+.hero:after{content:"☽  ✧  ⟡  ✦  ⟡  ✧";bottom:14px;right:4%;letter-spacing:1em}
+.cat-art{align-self:end;justify-self:center;position:relative;width:min(100%,350px);height:260px;display:grid;place-items:center}
+.cat-art svg{width:100%;height:100%;filter:drop-shadow(0 0 14px #9bb5e044)}
+.hero-copy{text-align:center;position:relative;z-index:1}
+.eyebrow{font: .72rem Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#aabbdc}
+h1{font-size:clamp(2.6rem,5vw,5rem);font-weight:400;line-height:.98;margin:17px 0}
+.hero-copy p{font-size:1rem;line-height:1.5;color:#c6cee0;max-width:490px;margin:20px auto}
+.compass{justify-self:center;width:min(100%,270px);aspect-ratio:1;position:relative;display:grid;place-items:center;color:#b9c8e5}
+.compass:before,.compass:after{content:"";position:absolute;border:1px solid #91a6ce88;border-radius:50%;inset:4%}
+.compass:after{inset:17%;border-style:dashed}
+.compass svg{width:78%;height:78%}
+.btn{display:inline-flex;align-items:center;gap:12px;border:1px solid #b8c7e3;padding:11px 17px;color:#f0f3fa;font-size:.88rem;letter-spacing:.05em;transition:.2s}
+.btn:hover{background:#dce2ef;color:#07101e}
+main section{padding:45px max(4vw,24px)}
+.wrap{max-width:1380px;margin:auto}
+.section-heading{text-align:center;margin-bottom:25px}
+.section-heading .ornament{color:#aabbd9;letter-spacing:.65em}
+h2{font-weight:400;font-size:clamp(2rem,3.2vw,3.2rem);margin:7px 0 10px}
+.section-heading p{font-size:.95rem;color:#b7c2d8;margin:0}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.tarot-card{min-width:0;position:relative;text-align:center;padding:12px 12px 16px;border:1px solid #8398bf;border-radius:7px;background:linear-gradient(145deg,#0c172b,#03070f 65%,#0b1830);box-shadow:inset 0 0 0 4px #050912,inset 0 0 0 5px #60749a;transition:.25s;overflow:hidden}
+.tarot-card:before{content:"";position:absolute;inset:9px;border:1px solid #a0b0cf88;pointer-events:none}
+.tarot-card:hover{transform:translateY(-5px);border-color:#e1e7f4;box-shadow:0 14px 34px #0008,inset 0 0 0 4px #050912,inset 0 0 0 5px #9aaccf}
+.card-art{height:205px;display:grid;place-items:center;color:#dce4f5;position:relative}
+.card-art svg{width:100%;height:100%;max-width:205px}
+.card-name{font-size:1.08rem;text-transform:uppercase;position:relative;margin-top:4px}
+.card-price{font-size:.9rem;color:#c5cee0;margin:5px 0 12px}
+.card-open{border:1px solid #b4c2df;border-radius:50%;width:36px;height:36px;background:transparent;color:white;cursor:pointer;font-size:1.2rem}
+.card-open:hover{background:#dce2ef;color:#081120}
+.about{border-top:1px solid #7184a766;border-bottom:1px solid #7184a766;background:linear-gradient(90deg,#07101f,#0a1425,#07101f)}
+.about-grid{display:grid;grid-template-columns:.7fr 1.4fr 1fr;gap:36px;align-items:center}
+.about-illustration{color:#b7c8e8;text-align:center}
+.about-illustration svg{width:100%;max-width:250px}
+.about h2{font-size:2rem}
+.about p{color:#c1cadd;font-size:.92rem;line-height:1.7}
+.about-right{border-left:1px solid #8a9bbb66;padding-left:30px}
+.about-right h3{font-size:1.2rem;font-weight:400}
+.mini-price{display:flex;gap:13px;margin:13px 0;color:#dfe5f2;font-size:.9rem}
+.star{font-size:1.2rem;color:#b9c8e5}
+.method-details{background:#060b15}
+.detail-list{max-width:1100px;margin:auto;display:grid;gap:12px}
+details{border:1px solid #5f7196;background:#091222}
+summary{cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;gap:15px;align-items:center;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary h3{font-weight:400;font-size:1.35rem;margin:0}
+summary span{color:#cad4e8}
+.detail-body{display:grid;grid-template-columns:1fr .65fr;gap:28px;padding:22px;border-top:1px solid #536588}
+.detail-body p,.detail-body li{color:#c6cee0;line-height:1.65}
+.detail-body ol{padding-left:22px}
+.spread{display:flex;align-items:center;justify-content:center;align-content:center;gap:8px;flex-wrap:wrap;border:1px dashed #667ca5;padding:18px;min-height:150px}
+.spread span{display:grid;place-items:center;width:39px;height:58px;border:1px solid #a3b3d2;background:linear-gradient(145deg,#152745,#050912);color:#dce5f7}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.package{border:1px solid #617499;padding:25px;background:#091221}
+.package h3{font-weight:400;font-size:1.6rem;margin:0 0 8px}
+.package p{color:#b9c5da}
+.price-row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #52638188;padding:12px 0;color:#e1e7f2}
+.contact{text-align:center;background:radial-gradient(ellipse at 50% 100%,#172849,#050912 68%);border-top:1px solid #7889a9}
+.contact p{color:#bdc8dc;max-width:600px;margin:0 auto 22px}
+footer{text-align:center;padding:24px;border-top:1px solid #7184a755;color:#9eacc7;font-size:.83rem;letter-spacing:.08em}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:.8fr 1.2fr}.compass{display:none}.about-grid{grid-template-columns:.5fr 1fr}.about-right{grid-column:2;border-left:0;padding-left:0}.card-art{height:190px}}
+@media(max-width:650px){.nav{padding:12px 16px}.toggle{display:block}.links{display:none;position:absolute;top:100%;left:0;right:0;padding:18px;background:#050912;flex-direction:column;align-items:stretch;border-bottom:1px solid #7384a5}.links.open{display:flex}.moons{display:none}.hero{grid-template-columns:1fr;padding:42px 20px 25px}.cat-art{height:170px;grid-row:2}.hero-copy{grid-row:1}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card-art{height:140px}.tarot-card{padding:10px 8px 13px}.card-name{font-size:.85rem}.card-price{font-size:.8rem}.about-grid{grid-template-columns:1fr}.about-illustration{display:none}.about-right{grid-column:auto}.packages{grid-template-columns:1fr}.detail-body{grid-template-columns:1fr}main section{padding:38px 16px}summary{padding:15px}summary h3{font-size:1.12rem}}
+@media(max-width:380px){.cards{grid-template-columns:1fr}.card-art{height:180px}}
+</style>
+</head>
+<body>
+<header><nav class="nav">
+<a class="brand" href="#inicio"><span class="brand-icon">✧</span><span>Flor Juju<small>TAROT & TIRAGENS</small></span></a>
+<div class="links" id="links"><a href="#inicio">Início</a><a href="#metodos">Métodos</a><a href="#sobre">Sobre</a><a href="#pacotes">Pacotes</a><a href="#contato">Contato</a></div>
+<div class="moons">⌁ ☽ ◐ ◑ ☾ ⌁</div><button class="toggle" id="toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+</nav></header>
+<main>
+<section class="hero" id="inicio">
+<div class="cat-art" aria-label="Ilustração vetorial de gato preto"><svg viewBox="0 0 320 260" role="img" aria-label="Gato preto diante da lua"><defs><radialGradient id="moon"><stop stop-color="#e6eaf4"/><stop offset="1" stop-color="#7184a9"/></radialGradient></defs><circle cx="151" cy="105" r="91" fill="url(#moon)" opacity=".92"/><g stroke="#a9badb" stroke-width="1" opacity=".8"><path d="M151 0V22M151 188V220M44 105H20M258 105h35M77 31l-15-15M226 180l17 17M77 180l-17 17M226 31l17-15"/></g><path d="M67 224L75 91 117 119Q151 92 184 119L228 85 234 224Q151 253 67 224Z" fill="#03050b" stroke="#667da5" stroke-width="2"/><path d="M80 116L82 55 126 100M178 100L221 48 218 120" fill="#03050b" stroke="#7589ad" stroke-width="2"/><path d="M104 144Q121 126 139 145L126 157Z M164 145Q183 126 201 144L180 157Z" fill="#dbe5f6"/><ellipse cx="122" cy="147" rx="4" ry="10" fill="#091322"/><ellipse cx="182" cy="147" rx="4" ry="10" fill="#091322"/><path d="M144 166l8 0 4 5-8 5-8-5z" fill="#c4d2eb"/><path d="M150 177Q142 191 132 179M150 177Q160 191 171 179" fill="none" stroke="#a6b8d9" stroke-width="2"/><path d="M139 166l-39-6M139 174l-43 9M165 166l39-6M165 174l43 9" stroke="#7f93b8" fill="none"/><circle cx="151" cy="202" r="13" fill="none" stroke="#aebfdf"/><path d="M151 190l8 12-8 12-8-12z" fill="none" stroke="#aebfdf"/><path d="M38 237Q151 213 265 237" stroke="#62799f" fill="none"/><text x="151" y="248" text-anchor="middle" fill="#aebfdf" font-size="10" letter-spacing="4">☾ FELIS NOCTURNA ☽</text></svg></div>
+<div class="hero-copy"><div class="eyebrow">✦ O véu entre mundos ✦</div><h1>MÉTODOS<br><span style="font-size:.62em">de</span> TIRAGEM</h1><p>Escolha o método que mais combina com a sua questão e descubra o que as cartas têm a revelar.</p><a class="btn" href="#metodos">Explorar os métodos　↘</a></div>
+<div class="compass"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="100" cy="100" r="83"/><circle cx="100" cy="100" r="67" stroke-dasharray="2 5"/><path d="M100 12L110 90 188 100 110 110 100 188 90 110 12 100 90 90Z"/><path d="M100 36L108 92 164 100 108 108 100 164 92 108 36 100 92 92Z"/><circle cx="100" cy="100" r="9"/><path d="M100 3v15M100 182v15M3 100h15M182 100h15"/><text x="100" y="28" text-anchor="middle" fill="currentColor" stroke="none" font-size="9">N</text><text x="100" y="182" text-anchor="middle" fill="currentColor" stroke="none" font-size="9">S</text></svg></div>
+</section>
+
+<section id="metodos"><div class="wrap"><div class="section-heading"><div class="ornament">✧ ☽ ✦ ☾ ✧</div><h2>Escolha sua tiragem</h2><p>Cada método guarda uma simbologia e uma pergunta própria.</p></div>
+<div class="cards">
+<a class="tarot-card" href="#cruz"><div class="card-art"><svg viewBox="0 0 180 220" fill="none" stroke="#d4def1" stroke-width="1.5"><rect x="10" y="8" width="160" height="204" rx="3"/><rect x="17" y="15" width="146" height="190"/><circle cx="90" cy="105" r="57" stroke-dasharray="2 5"/><circle cx="90" cy="105" r="42"/><path d="M90 48L98 87 137 95 98 103 90 142 82 103 43 95 82 87Z" fill="#182a49"/><path d="M90 60V140M55 100H125M90 70l10 30-10 30-10-30z"/><path d="M32 32l8 8-8 8-8-8zM148 32l8 8-8 8-8-8zM32 172l8 8-8 8-8-8zM148 172l8 8-8 8-8-8z"/><text x="90" y="28" fill="#d4def1" stroke="none" text-anchor="middle" font-size="10">I</text></svg></div><div class="card-name">A Cruz</div><div class="card-price">R$ 30,00</div><button class="card-open" aria-label="Ver A Cruz">→</button></a>
+<a class="tarot-card" href="#taca"><div class="card-art"><svg viewBox="0 0 180 220" fill="none" stroke="#d4def1" stroke-width="1.5"><rect x="10" y="8" width="160" height="204"/><rect x="17" y="15" width="146" height="190"/><path d="M68 76Q50 52 62 40Q78 46 90 59Q102 46 118 40Q130 54 112 76L90 94Z"/><path d="M66 83H114L108 112Q90 128 72 112Z"/><path d="M90 128V158M67 158H113M78 158L72 174H108L102 158"/><path d="M42 102Q25 85 36 65Q45 82 53 87M138 102Q155 85 144 65Q135 82 127 87"/><path d="M39 125Q90 156 141 125M44 135Q90 164 136 135"/><path d="M90 27a13 13 0 1 0 12 18A16 16 0 1 1 90 27Z"/><circle cx="90" cy="188" r="3"/><text x="90" y="30" text-anchor="middle" fill="#d4def1" stroke="none" font-size="9">II</text></svg></div><div class="card-name">Taça do Amor</div><div class="card-price">R$ 35,00</div><button class="card-open" aria-label="Ver Taça do Amor">→</button></a>
+<a class="tarot-card" href="#afrodite"><div class="card-art"><svg viewBox="0 0 180 220" fill="none" stroke="#d4def1" stroke-width="1.5"><rect x="10" y="8" width="160" height="204"/><rect x="17" y="15" width="146" height="190"/><circle cx="90" cy="105" r="45"/><circle cx="90" cy="105" r="30"/><path d="M90 71V139M56 105H124M66 81l48 48M114 81l-48 48"/><path d="M90 62C73 43 59 60 72 76Q90 93 90 93Q90 93 108 76C121 60 107 43 90 62Z"/><path d="M39 147Q53 127 64 145T90 145T116 145T141 147"/><path d="M48 158l-7 9 12 2M132 158l7 9-12 2"/><path d="M90 28l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z"/><text x="90" y="192" text-anchor="middle" fill="#d4def1" stroke="none" font-size="9">III</text></svg></div><div class="card-name">Templo de Afrodite</div><div class="card-price">R$ 65,00</div><button class="card-open" aria-label="Ver Templo de Afrodite">→</button></a>
+<a class="tarot-card" href="#diabo"><div class="card-art"><svg viewBox="0 0 180 220" fill="none" stroke="#d4def1" stroke-width="1.5"><rect x="10" y="8" width="160" height="204"/><rect x="17" y="15" width="146" height="190"/><path d="M52 76L42 43 72 62Q90 50 108 62L138 43 128 76 119 128 90 155 61 128Z"/><path d="M63 79L78 92 69 97M117 79L102 92 111 97"/><path d="M77 112Q90 122 103 112M90 94v20"/><path d="M50 143L32 161 57 156M130 143l18 18-25-5"/><circle cx="90" cy="105" r="65" stroke-dasharray="2 5"/><path d="M90 162v17M82 171h16"/><path d="M90 27l5 10 11 1-8 8 2 11-10-6-10 6 2-11-8-8 11-1z"/><text x="90" y="194" text-anchor="middle" fill="#d4def1" stroke="none" font-size="9">XV</text></svg></div><div class="card-name">Templo do Diabo</div><div class="card-price">R$ 70,00</div><button class="card-open" aria-label="Ver Templo do Diabo">→</button></a>
+<a class="tarot-card" href="#mensal"><div class="card-art"><svg viewBox="0 0 180 220" fill="none" stroke="#d4def1" stroke-width="1.5"><rect x="10" y="8" width="160" height="204"/><rect x="17" y="15" width="146" height="190"/><circle cx="90" cy="105" r="57"/><circle cx="90" cy="105" r="37" stroke-dasharray="3 5"/><path d="M90 51A20 20 0 1 0 108 79A24 24 0 1 1 90 51Z"/><path d="M90 82L96 100 115 105 96 110 90 129 84 110 65 105 84 100Z"/><circle cx="90" cy="105" r="5"/><path d="M90 38v9M90 163v9M23 105h9M148 105h9M42 57l7 7M131 146l7 7M138 57l-7 7M49 146l-7 7"/><text x="90" y="194" text-anchor="middle" fill="#d4def1" stroke="none" font-size="9">XII</text></svg></div><div class="card-name">Leitura Mensal</div><div class="card-price">R$ 160,00</div><button class="card-open" aria-label="Ver Leitura Mensal">→</button></a>
+</div></div></section>
+
+<section class="about" id="sobre"><div class="wrap about-grid">
+<div class="about-illustration"><svg viewBox="0 0 220 260" fill="none" stroke="#b9c9e7" stroke-width="1.2"><path d="M110 14V246M14 130H206"/><circle cx="110" cy="130" r="65"/><circle cx="110" cy="130" r="48" stroke-dasharray="2 5"/><path d="M110 55C80 80 82 112 110 130C138 112 140 80 110 55Z"/><path d="M110 130C80 150 83 179 110 205C137 179 140 150 110 130Z"/><path d="M45 130Q70 110 110 130Q150 110 175 130Q150 150 110 130Q70 150 45 130Z"/><path d="M110 14l8 18-8 18-8-18zM110 210l8 18-8 18-8-18z"/><circle cx="110" cy="130" r="8"/></svg></div>
+<div><div class="eyebrow">Boas-vindas ao catálogo</div><h2>Seja bem-vindo(a) ao meu universo de tiragens.</h2><p>Aqui você vai encontrar todos os métodos de tiragem que trabalho, seus valores e a quantidade de cartas de cada leitura.</p><p>Cada método foi pensado para uma finalidade diferente, então você pode escolher de acordo com a questão que deseja entender melhor ou com o momento que está vivendo.</p><p>As cartas podem trazer uma visão diferente sobre situações, sentimentos, caminhos e possibilidades que às vezes não conseguimos enxergar sozinhos.</p><p>Cada leitura é feita com cuidado e atenção, respeitando aquilo que as cartas mostram no momento da consulta.</p><p>Leia as opções com calma e escolha a tiragem que mais fizer sentido para o que você procura. Caso fique em dúvida, pode me chamar antes de realizar o pagamento que eu te ajudo ♡</p><p>Espero que alguma dessas tiragens possa te ajudar a enxergar um pouquinho além do que os olhos conseguem ver. ✦</p><p>Axé ♡ — Flor Juju</p></div>
+<div class="about-right"><div class="eyebrow">Além dos métodos</div><h3>Também trabalho com as tiragens:</h3><div class="mini-price"><span class="star">✧</span><div><strong>Objetivas — R$ 10,00</strong><br><small>Leituras mais diretas, para perguntas específicas e respostas pontuais.</small></div></div><div class="mini-price"><span class="star">✧</span><div><strong>Detalhadas — R$ 20,00</strong><br><small>Leituras mais completas, para aprofundar melhor a questão.</small></div></div><p>Também temos pacotes promocionais para quem deseja realizar mais de uma tiragem. Os detalhes estão abaixo.</p></div>
+</div></section>
+
+<section class="method-details" id="detalhes"><div class="wrap"><div class="section-heading"><div class="ornament">☽ ✧ ☾</div><h2>O significado de cada posição</h2><p>Selecione um método para revelar seus detalhes.</p></div>
+<div class="detail-list">
+<details id="cruz"><summary><h3>✦ A Cruz</h3><span>5 cartas · R$ 30,00　＋</span></summary><div class="detail-body"><div><p>Uma leitura sobre a vibração da pergunta, os caminhos e o resultado.</p><ol><li>Como a pergunta vibra no momento</li><li>Caminho que deve ser evitado</li><li>Caminho certo</li><li>O resultado</li><li>Resumo do jogo</li></ol></div><div class="spread"><span>3</span><span>1</span><span>5</span><span>2</span><span>4</span></div></div></details>
+<details id="taca"><summary><h3>✦ Taça do Amor</h3><span>7 cartas · R$ 35,00　＋</span></summary><div class="detail-body"><div><p>Uma leitura dedicada aos aspectos de um relacionamento.</p><ol><li>O relacionamento</li><li>A consulente na relação</li><li>O parceiro na relação</li><li>O que favorece</li><li>O que não fazer</li><li>O futuro da relação</li><li>Conselho</li></ol></div><div class="spread"><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span><span>6</span><span>7</span></div></div></details>
+<details id="afrodite"><summary><h3>✦ Templo de Afrodite</h3><span>8 cartas · R$ 65,00　＋</span></summary><div class="detail-body"><div><p>Uma leitura sobre diferentes dimensões do relacionamento.</p><ol><li>1 e 6 — Intenções</li><li>2 e 5 — Sentimentos</li><li>3 e 4 — Pensamentos</li><li>7 — Futuro do relacionamento</li><li>8 — Conselho</li></ol></div><div class="spread"><span>3</span><span>4</span><span>7</span><span>2</span><span>5</span><span>8</span><span>1</span><span>6</span></div></div></details>
+<details id="diabo"><summary><h3>✦ Templo do Diabo</h3><span>7 cartas · R$ 70,00　＋</span></summary><div class="detail-body"><div><p>Questões sobre confiança, dúvidas e conselho para a situação.</p><ol><li>Meu parceiro já me traiu?</li><li>Já pensou em me trair?</li><li>Já falou mal pelas costas?</li><li>Já pensou em terminar?</li><li>Tem outra pessoa na vida dele?</li><li>Sente algo além de desejo sexual?</li><li>Conselho</li></ol></div><div class="spread"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div></div></details>
+<details id="mensal"><summary><h3>✦ Leitura Mensal</h3><span>9 cartas · R$ 160,00　＋</span></summary><div class="detail-body"><div><p>Uma visão do mês em diferentes áreas da vida.</p><ol><li>Energia do mês</li><li>Amor</li><li>Financeiro</li><li>Saúde</li><li>Trabalho</li><li>Família</li><li>Espiritual</li><li>Obstáculos</li><li>Conselho</li></ol></div><div class="spread"><span>2</span><span>3</span><span>4</span><span>5</span><span>1</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div></details>
+</div></div></section>
+
+<section id="pacotes"><div class="wrap"><div class="section-heading"><div class="ornament">✧ ✦ ✧</div><h2>Pacotes promocionais</h2><p>Escolha a opção que combina com o que você procura.</p></div><div class="packages"><div class="package"><h3>Perguntas avulsas</h3><p>Leituras com diferentes níveis de aprofundamento.</p><div class="price-row"><span>Objetivas</span><strong>R$ 10,00</strong></div><div class="price-row"><span>Detalhadas</span><strong>R$ 20,00</strong></div></div><div class="package"><h3>Pacotes detalhados</h3><p>Para quem deseja fazer mais de uma pergunta.</p><div class="price-row"><span>2 perguntas detalhadas</span><strong>R$ 35,00</strong></div><div class="price-row"><span>3 perguntas detalhadas</span><strong>R$ 55,00</strong></div><div class="price-row"><span>4 perguntas detalhadas</span><strong>R$ 75,00</strong></div><div class="price-row"><span>5 perguntas detalhadas</span><strong>R$ 95,00</strong></div></div></div></div></section>
+
+<section class="contact" id="contato"><div class="wrap"><div class="eyebrow">☽ ✦ ☾</div><h2>As cartas revelam o que a alma já sabe.</h2><p>Ficou em dúvida sobre qual método escolher? Entre em contato antes de realizar o pagamento para receber ajuda na escolha da tiragem.</p><a class="btn" href="https://wa.me/?text=Ol%C3%A1%2C%20Flor%20Juju!%20Quero%20saber%20mais%20sobre%20as%20tiragens." target="_blank" rel="noopener">Falar com Flor Juju　↗</a><p style="font-size:.78rem;margin-top:14px">Personalize o link do WhatsApp com seu número para receber as mensagens diretamente.</p></div></section>
+</main>
+<footer><div style="font-size:1.2rem;letter-spacing:.5em">☾ ✧ ☽</div>FLOR JUJU · TAROT & TIRAGENS</footer>
+<script>
+const toggle=document.getElementById('toggle'),links=document.getElementById('links');
+toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕':'☰'});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰'}));
+document.querySelectorAll('.tarot-card').forEach(card=>card.addEventListener('click',()=>{const d=document.querySelector(card.getAttribute('href'));if(d&&d.tagName==='DETAILS')d.open=true}));
+</script>
+</body>
+</html>
